@@ -206,6 +206,18 @@ final class APIService {
         let body = swipes.map { ["articleId": $0.articleId, "liked": $0.liked] as [String: Any] }
         let _: EmptyResponse = try await request("/api/onboarding/calibrate", method: "POST", body: ["swipes": body])
     }
+
+    // MARK: - Taste Tuner
+
+    func fetchTasteTunerArticles() async throws -> [Article] {
+        let response: ArticlesResponse = try await request("/api/taste-tuner/articles")
+        return response.articles
+    }
+
+    func submitTasteTunerRatings(_ ratings: [(articleId: String, tier: String)]) async throws {
+        let body = ratings.map { ["articleId": $0.articleId, "tier": $0.tier] as [String: Any] }
+        let _: EmptyResponse = try await request("/api/taste-tuner/submit", method: "POST", body: ["ratings": body])
+    }
 }
 
 // Dummy decodable for fire-and-forget responses

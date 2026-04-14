@@ -31,26 +31,28 @@ struct SignalApp: App {
     init() {
         configureAppearance()
         AppEnvironment.shared.registerBackgroundTasks()
+        // Migration: users who completed the old binary onboarding skip the Taste Tuner on launch
+        if UserDefaults.standard.bool(forKey: "onboarding_complete") {
+            UserDefaults.standard.set(true, forKey: "taste_tuner_completed")
+        }
     }
 
-    @State private var showOnboarding = !UserDefaults.standard.bool(forKey: "onboarding_complete")
+    @State private var showOnboarding = !UserDefaults.standard.bool(forKey: "taste_tuner_completed")
 
     var body: some Scene {
         WindowGroup {
-            Group {
-                if showOnboarding {
-                    OnboardingView {
+            ContentView()
+                .task { await requestPushPermission() }
+                .fullScreenCover(isPresented: $showOnboarding) {
+                    TasteTunerView {
                         withAnimation(.easeInOut(duration: 0.5)) {
                             showOnboarding = false
                         }
                     }
-                } else {
-                    ContentView()
-                        .task { await requestPushPermission() }
+                    .preferredColorScheme(.dark)
                 }
-            }
-            .preferredColorScheme(.dark)
-            .environment(appEnv)
+                .preferredColorScheme(.dark)
+                .environment(appEnv)
         }
     }
 

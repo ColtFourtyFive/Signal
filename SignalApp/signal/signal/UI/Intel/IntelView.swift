@@ -3,6 +3,7 @@ import SwiftUI
 struct IntelView: View {
     @State private var viewModel = IntelViewModel()
     @State private var selectedTab: IntelTab = .taste
+    @State private var showTasteTuner = false
 
     enum IntelTab: String, CaseIterable {
         case taste    = "Taste"
@@ -40,6 +41,10 @@ struct IntelView: View {
             }
         }
         .task { await viewModel.load() }
+        .sheet(isPresented: $showTasteTuner) {
+            TasteTunerView(onComplete: { showTasteTuner = false }, isSheet: true)
+                .preferredColorScheme(.dark)
+        }
     }
 
     private var content: some View {
@@ -59,6 +64,31 @@ struct IntelView: View {
                 Group {
                     switch selectedTab {
                     case .taste:
+                        // Taste Tuner button card
+                        Button {
+                            showTasteTuner = true
+                        } label: {
+                            HStack {
+                                VStack(alignment: .leading, spacing: 4) {
+                                    Text("TASTE TUNER")
+                                        .font(.system(size: 13, weight: .bold, design: .monospaced))
+                                        .foregroundColor(DesignSystem.Colors.accent)
+                                    Text("Re-calibrate your feed in 15 swipes")
+                                        .font(.system(size: 14))
+                                        .foregroundColor(DesignSystem.Colors.textSecondary)
+                                }
+                                Spacer()
+                                Image(systemName: "chevron.right")
+                                    .font(.system(size: 14))
+                                    .foregroundColor(DesignSystem.Colors.textTertiary)
+                            }
+                            .padding(16)
+                            .background(DesignSystem.Colors.surface)
+                            .clipShape(RoundedRectangle(cornerRadius: 12))
+                            .overlay(RoundedRectangle(cornerRadius: 12).stroke(DesignSystem.Colors.border, lineWidth: 0.5))
+                        }
+                        .buttonStyle(.plain)
+
                         if let stats = viewModel.stats {
                             TasteProfileView(
                                 stats: stats,
