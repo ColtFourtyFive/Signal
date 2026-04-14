@@ -33,12 +33,24 @@ struct SignalApp: App {
         AppEnvironment.shared.registerBackgroundTasks()
     }
 
+    @State private var showOnboarding = !UserDefaults.standard.bool(forKey: "onboarding_complete")
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .preferredColorScheme(.dark)
-                .environment(appEnv)
-                .task { await requestPushPermission() }
+            Group {
+                if showOnboarding {
+                    OnboardingView {
+                        withAnimation(.easeInOut(duration: 0.5)) {
+                            showOnboarding = false
+                        }
+                    }
+                } else {
+                    ContentView()
+                        .task { await requestPushPermission() }
+                }
+            }
+            .preferredColorScheme(.dark)
+            .environment(appEnv)
         }
     }
 

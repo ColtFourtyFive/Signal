@@ -1,2 +1,1 @@
-// Debug configuration — points to local backend
-API_BASE_URL = http://localhost:3001
+API_BASE_URL = https://signal-production-9b0e.up.railway.app

@@ -6,6 +6,7 @@ import cors from 'cors';
 import articlesRouter from './routes/articles';
 import feedsRouter from './routes/feeds';
 import intelRouter from './routes/intel';
+import onboardingRouter from './routes/onboarding';
 import { startFeedRefreshJob } from './jobs/feedRefreshJob';
 import { startDiscoveryJob } from './jobs/discoveryJob';
 import { startCentroidJob } from './jobs/centroidJob';
@@ -40,6 +41,7 @@ app.get('/api/health', (_req, res) => {
 // -------------------------------------------------------
 app.use('/api/articles', articlesRouter);
 app.use('/api/feeds', feedsRouter);
+app.use('/api/onboarding', onboardingRouter);
 app.use('/api', intelRouter);
 
 // -------------------------------------------------------

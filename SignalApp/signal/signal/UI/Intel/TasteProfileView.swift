@@ -33,7 +33,7 @@ struct TasteProfileView: View {
 
             VStack(spacing: 6) {
                 Text("Build Your Profile")
-                    .font(DesignSystem.Typography.title)
+                    .font(DesignSystem.Typography.headline)
                     .foregroundColor(DesignSystem.Colors.textPrimary)
                 Text("Read and save articles to teach Signal what you care about")
                     .font(DesignSystem.Typography.body)

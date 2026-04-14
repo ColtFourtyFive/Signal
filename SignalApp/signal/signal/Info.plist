@@ -11,5 +11,31 @@
 	<array>
 		<string>com.signal.feed-refresh</string>
 	</array>
+	<key>API_BASE_URL</key>
+	<string>$(signal-production-9b0e.up.railway.app)
+
+
+
+$(signal-production-9b0e.up.railway.app
+
+
+
+signal-production-9b0e.up.railway.app
+
+
+
+signal-production-9b0e.up.railway.app
+
+
+
+signal-production-9b0e.up.railway.app
+
+
+
+signal-production-9b0e.up.railway.app
+
+
+
+</string>
 </dict>
 </plist>

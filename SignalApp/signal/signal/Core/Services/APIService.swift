@@ -1,6 +1,6 @@
 import Foundation
 
-private let kAPIBaseURL: String = Bundle.main.infoDictionary?["API_BASE_URL"] as? String ?? "http://localhost:3001"
+private let kAPIBaseURL = "https://signal-production-9b0e.up.railway.app"
 
 enum APIError: LocalizedError {
     case invalidURL
@@ -189,6 +189,22 @@ final class APIService {
 
     func registerPushToken(_ token: String) async throws {
         let _: EmptyResponse = try await request("/api/push/register", method: "POST", body: ["token": token])
+    }
+
+    // MARK: - Onboarding
+
+    struct CalibrationArticlesResponse: Decodable {
+        let articles: [Article]
+    }
+
+    func fetchCalibrationArticles() async throws -> [Article] {
+        let response: CalibrationArticlesResponse = try await request("/api/onboarding/articles")
+        return response.articles
+    }
+
+    func submitCalibration(_ swipes: [(articleId: String, liked: Bool)]) async throws {
+        let body = swipes.map { ["articleId": $0.articleId, "liked": $0.liked] as [String: Any] }
+        let _: EmptyResponse = try await request("/api/onboarding/calibrate", method: "POST", body: ["swipes": body])
     }
 }
 
