@@ -1,0 +1,11 @@
+[phases.setup]
+nixPkgs = ["nodejs_20"]
+
+[phases.install]
+cmds = ["cd signal-backend && npm install"]
+
+[phases.build]
+cmds = ["cd signal-backend && npm run build"]
+
+[start]
+cmd = "cd signal-backend && node dist/server.js"
