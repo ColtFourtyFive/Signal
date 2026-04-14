@@ -1,0 +1,9 @@
+{
+  "name": "signal",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "cd signal-backend && npm install && npm run build",
+    "start": "cd signal-backend && node dist/server.js"
+  }
+}
