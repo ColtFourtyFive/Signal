@@ -180,10 +180,15 @@ struct TasteTunerView: View {
                     removal: .opacity
                 ))
                 .id(article.id)
-            } else if viewModel.loadError != nil {
+            } else if let error = viewModel.loadError {
                 VStack(spacing: 12) {
                     Text("Couldn't load articles")
                         .foregroundColor(DesignSystem.Colors.textSecondary)
+                    Text(error)
+                        .font(.system(size: 11, design: .monospaced))
+                        .foregroundColor(DesignSystem.Colors.textTertiary)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, 24)
                     Button("Try again") {
                         Task { await viewModel.loadArticles() }
                     }

@@ -25,7 +25,7 @@ router.get('/articles', async (_req: Request, res: Response) => {
       categoryQuotas.map(({ category, limit }) =>
         supabaseAdmin
           .from('articles')
-          .select('id, title, content, score, score_reason, category, is_primary_source, key_entities, published_at, feed_id, feeds(name, category)')
+          .select('id, title, url, content, score, score_reason, category, is_primary_source, key_entities, published_at, feed_id, interaction_count, is_read, is_saved, dismissed, created_at, feeds(name, category)')
           .eq('category', category)
           .gte('score', 7)
           .eq('dismissed', false)
