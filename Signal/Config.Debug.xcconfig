@@ -1,0 +1,2 @@
+// Debug configuration — points to local backend
+API_BASE_URL = http://localhost:3001

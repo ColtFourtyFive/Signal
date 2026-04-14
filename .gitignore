@@ -1,0 +1,23 @@
+# Backend
+signal-backend/node_modules/
+signal-backend/dist/
+signal-backend/.env
+signal-backend/*.log
+
+# iOS / Xcode
+SignalApp/signal/signal.xcodeproj/xcuserdata/
+SignalApp/signal/signal.xcodeproj/project.xcworkspace/xcuserdata/
+SignalApp/signal/.build/
+SignalApp/signal/DerivedData/
+*.xccheckout
+*.xcscmblueprint
+*.moved-aside
+
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Editor
+.vscode/
+*.swp
+*.swo
