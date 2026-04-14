@@ -1,2 +1,2 @@
 // Release configuration — update with your Railway URL after deploy
-API_BASE_URL = https://YOUR_RAILWAY_URL.up.railway.app
+API_BASE_URL = https://signal-production-9b0e.up.railway.app
